@@ -43,36 +43,117 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
-
-
-
-            <TextView
-                android:id="@+id/plc_rating"
+            <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:cardCornerRadius="20dp"
+                android:id="@+id/sbp_card"
 
-                android:text="3.5"
-                android:textSize="20sp"
-                android:layout_centerVertical="true"/>
-            <ImageView
-                android:id="@+id/fav_false"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginEnd="5dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    >
+                    <TextView
 
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="SBP"
+                        android:textSize="20sp"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        />
+                    <TextView
 
-            <ImageView
-                android:id="@+id/fav_true"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginEnd="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="120 mm Hg"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"
+                        />
 
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:visibility="gone"/>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="20dp"
+                android:id="@+id/dbp_card"
+                android:layout_toEndOf="@+id/sbp_card"
+                android:layout_marginStart="10dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    >
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="DBP"
+                        android:textSize="20sp"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        />
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="80 mm Hg"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"
+                        />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="20dp"
+                android:id="@+id/hr_card"
+                android:layout_toEndOf="@+id/dbp_card"
+                android:layout_marginStart="10dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    >
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="HR"
+                        android:textSize="20sp"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        />
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="80 bpm"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"
+                        />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
         </RelativeLayout>
 
 
