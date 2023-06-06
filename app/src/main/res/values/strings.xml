@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CardiacRecorder</string>
+    <string name="daily_tracker">Daily Tracker</string>
 </resources>
