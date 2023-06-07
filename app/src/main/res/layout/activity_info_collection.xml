@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".InfoCollection"
+    tools:ignore="SpeakableTextPresentCheck">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/merienda_one"
+            android:text="@string/add_record"
+            android:textColor="#1EDFAA"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/part1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="10dp"
+            android:layout_margin="10dp"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F5FBFB">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="20dp"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:hint="@string/systolic_pressure"
+                        app:boxStrokeColor="@color/text"
+                        app:boxStrokeWidthFocused="2dp"
+                        app:endIconTint="@color/black"
+                        app:hintTextColor="@color/black"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/sys_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:textColor="@color/black"
+                            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:hint="@string/diastolic_pressure"
+                        app:boxStrokeColor="@color/text"
+                        app:boxStrokeWidthFocused="2dp"
+                        app:hintTextColor="@color/black"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/dia_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:textColor="@color/black"
+                            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:hint="@string/heart_rate"
+                        app:boxStrokeColor="@color/text"
+                        app:boxStrokeWidthFocused="2dp"
+                        app:hintTextColor="@color/black"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/hr_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:textColor="@color/black"
+                            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:hint="@string/pick_a_date"
+                        app:boxStrokeColor="@color/text"
+                        app:boxStrokeWidthFocused="2dp"
+                        app:hintTextColor="@color/black"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/date_pick"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:drawableEnd="@drawable/ic_baseline_calendar_month_24"
+                            android:focusable="false"
+                            android:inputType="none"
+                            android:textColor="@color/black"
+                            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:hint="@string/select_time"
+                        app:boxStrokeColor="@color/text"
+                        app:boxStrokeWidthFocused="2dp"
+                        app:hintTextColor="@color/black"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/time_pick"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:drawableEnd="@drawable/ic_baseline_access_time_24"
+                            android:focusable="false"
+                            android:inputType="none"
+                            android:textColor="@color/black"
+                            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:hint="@string/comment"
+                        android:overScrollMode="always"
+                        android:scrollbarStyle="insideInset"
+                        android:scrollbars="vertical"
+                        app:boxStrokeColor="@color/text"
+                        app:boxStrokeWidthFocused="2dp"
+                        app:hintTextColor="@color/black"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/cmnt_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="top"
+                            android:inputType="textMultiLine"
+                            android:lines="5"
+                            android:textColor="@color/black"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/save_btn"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/button"
+                        android:padding="10dp"
+                        android:text="@string/save"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        tools:ignore="SpeakableTextPresentCheck" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+</ScrollView>

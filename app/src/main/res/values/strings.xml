@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">CardiacRecorder</string>
     <string name="daily_tracker">Daily Tracker</string>
+    <string name="systolic_pressure">Systolic Pressure</string>
+    <string name="diastolic_pressure">Diastolic Pressure</string>
+    <string name="pick_a_date">Pick a date</string>
+    <string name="select_time">Select Time</string>
+    <string name="comment">Comment</string>
+    <string name="add_record">Add Record</string>
+    <string name="heart_rate">Heart Rate</string>
+    <string name="save">Save</string>
 </resources>
