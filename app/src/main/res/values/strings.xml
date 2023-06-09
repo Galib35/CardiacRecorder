@@ -11,4 +11,12 @@
     <string name="save">Save</string>
     <string name="update">Update</string>
     <string name="delete">Delete</string>
+    <string name="_06_06_23">06/06/23</string>
+    <string name="_22_00">22:00</string>
+    <string name="heart_rate2">Heart Rate: </string>
+    <string name="_50_bpm">50 bpm</string>
+    <string name="low">Low</string>
+    <string name="details">Details</string>
+    <string name="comment2">Comment: </string>
+    <string name="normal_blood_pressure">Normal blood pressure</string>
 </resources>
