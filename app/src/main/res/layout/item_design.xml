@@ -178,15 +178,15 @@
                     android:src="@drawable/ic_baseline_edit_note_32"
                     app:tint="@color/greenish_blue"
                     />
+
                 <ImageView
                     android:id="@+id/delete_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_baseline_delete_32"
                     android:layout_below="@+id/edit_btn"
-                    app:tint="@color/high"
                     android:layout_marginTop="5dp"
-                    />
+                    android:src="@drawable/ic_baseline_delete_32"
+                    app:tint="@color/high" />
             </RelativeLayout>
 
 
