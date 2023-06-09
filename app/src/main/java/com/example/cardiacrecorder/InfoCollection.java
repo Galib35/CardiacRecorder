@@ -10,18 +10,23 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Objects;
 
 public class InfoCollection extends AppCompatActivity {
     EditText date,time,systolic,diastolic,heart,comment;
     Button save;
     TextInputLayout sysLayout,diaLayout,hrLayout,cmntLayout,dateLayout,timeLayout;
+    FirebaseAuth auth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,8 @@ public class InfoCollection extends AppCompatActivity {
         heart=findViewById(R.id.hr_edt);
         comment=findViewById(R.id.cmnt_edt);
         save=findViewById(R.id.save_btn);
+
+        auth=FirebaseAuth.getInstance();
 
 
         date.setOnClickListener(new View.OnClickListener() {
@@ -92,32 +99,57 @@ public class InfoCollection extends AppCompatActivity {
                 datePick=date.getText().toString().trim();
                 timePick=time.getText().toString().trim();
 
+
+
                 if(sys.isEmpty())
                 {
                     sysLayout.setError("This field can't be empty");
+
                 }
-                if(dia.isEmpty())
+                else if(dia.isEmpty())
                 {
                     diaLayout.setError("This field can't be empty");
+
                 }
-                if(hr.isEmpty())
+                else if(hr.isEmpty())
                 {
                     hrLayout.setError("This field can't be empty");
+
                 }
-                if(cmnt.isEmpty())
+                else if(cmnt.isEmpty())
                 {
                     cmntLayout.setError("This field can't be empty");
+
                 }
-                if(datePick.isEmpty())
+                else if(datePick.isEmpty())
                 {
                     dateLayout.setError("This field can't be empty");
+
                 }
-                if(timePick.isEmpty())
+                else if(timePick.isEmpty())
                 {
                     timeLayout.setError("This field can't be empty");
+
+                }
+                else
+                {
+                    DatabaseReference ref=FirebaseDatabase.getInstance().getReference()
+                            .child("User").child(Objects.requireNonNull(auth.getCurrentUser()).getUid()).child("Daily Tracker");
+
+                    String key = ref.push().getKey();
+                    assert key != null;
+                    ref.child(key).child("Systolic").setValue(sys);
+                    ref.child(key).child("Diastolic").setValue(dia);
+                    ref.child(key).child("Heart Rate").setValue(hr);
+                    ref.child(key).child("Comment").setValue(cmnt);
+                    ref.child(key).child("Comment").setValue(cmnt);
+                    ref.child(key).child("Date").setValue(datePick);
+                    ref.child(key).child("Time").setValue(timePick);
+
+                    Toast.makeText(InfoCollection.this, "Info added", Toast.LENGTH_SHORT).show();
                 }
 
-                
+
             }
         });
     }

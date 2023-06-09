@@ -30,7 +30,7 @@ public class SplashScreen extends AppCompatActivity {
                 finally {
 
 
-                    Intent welcomeIntent = new Intent(SplashScreen.this, MainActivity.class);
+                    Intent welcomeIntent = new Intent(SplashScreen.this, SignIn.class);
                  startActivity(welcomeIntent);
 
 //                    SharedPreferences sp = getSharedPreferences("sp",MODE_PRIVATE);
