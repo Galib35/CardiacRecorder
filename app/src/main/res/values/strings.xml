@@ -9,4 +9,6 @@
     <string name="add_record">Add Record</string>
     <string name="heart_rate">Heart Rate</string>
     <string name="save">Save</string>
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
 </resources>
