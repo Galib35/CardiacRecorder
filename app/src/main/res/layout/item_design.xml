@@ -50,6 +50,7 @@
                 android:id="@+id/sbp_card"
                 >
                 <LinearLayout
+                    android:id="@+id/sbp_layout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
@@ -88,6 +89,7 @@
                 android:layout_marginStart="10dp"
                 >
                 <LinearLayout
+                    android:id="@+id/dbp_layout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
@@ -127,6 +129,7 @@
 
                 >
                 <LinearLayout
+                    android:id="@+id/heart_layout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"

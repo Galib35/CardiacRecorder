@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -42,6 +44,13 @@ public class InfoCollection extends AppCompatActivity {
 
         auth=FirebaseAuth.getInstance();
 
+
+        date.addTextChangedListener(watcher);
+        time.addTextChangedListener(watcher);
+        systolic.addTextChangedListener(watcher);
+        diastolic.addTextChangedListener(watcher);
+        heart.addTextChangedListener(watcher);
+        comment.addTextChangedListener(watcher);
 
         date.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,56 +110,51 @@ public class InfoCollection extends AppCompatActivity {
 
 
 
-                if(sys.isEmpty())
-                {
-                    sysLayout.setError("This field can't be empty");
+                DatabaseReference ref=FirebaseDatabase.getInstance().getReference()
+                        .child("User").child(Objects.requireNonNull(auth.getCurrentUser()).getUid()).child("Daily Tracker");
 
-                }
-                else if(dia.isEmpty())
-                {
-                    diaLayout.setError("This field can't be empty");
+                String key = ref.push().getKey();
+                assert key != null;
+                ref.child(key).child("Systolic").setValue(sys);
+                ref.child(key).child("Diastolic").setValue(dia);
+                ref.child(key).child("Heart Rate").setValue(hr);
+                ref.child(key).child("Comment").setValue(cmnt);
+                ref.child(key).child("Date").setValue(datePick);
+                ref.child(key).child("Time").setValue(timePick);
 
-                }
-                else if(hr.isEmpty())
-                {
-                    hrLayout.setError("This field can't be empty");
+               /* Constant.key.add(key);
+                Constant.tmp_sys.add(sys);
+                Constant.tmp_dia.add(dia);
+                Constant.tmp_hr.add(hr);
+                Constant.tmp_cmnt.add(cmnt);
+                Constant.tmp_date.add(datePick);
+                Constant.tmp_time.add(timePick);*/
 
-                }
-                else if(cmnt.isEmpty())
-                {
-                    cmntLayout.setError("This field can't be empty");
-
-                }
-                else if(datePick.isEmpty())
-                {
-                    dateLayout.setError("This field can't be empty");
-
-                }
-                else if(timePick.isEmpty())
-                {
-                    timeLayout.setError("This field can't be empty");
-
-                }
-                else
-                {
-                    DatabaseReference ref=FirebaseDatabase.getInstance().getReference()
-                            .child("User").child(Objects.requireNonNull(auth.getCurrentUser()).getUid()).child("Daily Tracker");
-
-                    String key = ref.push().getKey();
-                    assert key != null;
-                    ref.child(key).child("Systolic").setValue(sys);
-                    ref.child(key).child("Diastolic").setValue(dia);
-                    ref.child(key).child("Heart Rate").setValue(hr);
-                    ref.child(key).child("Comment").setValue(cmnt);
-                    ref.child(key).child("Comment").setValue(cmnt);
-                    ref.child(key).child("Date").setValue(datePick);
-                    ref.child(key).child("Time").setValue(timePick);
-
-                    Toast.makeText(InfoCollection.this, "Info added", Toast.LENGTH_SHORT).show();
-                }
-
-
+                Toast.makeText(InfoCollection.this, "Info added", Toast.LENGTH_SHORT).show();
             }
         });
     }
+    TextWatcher watcher=new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            String sys,dia,hr,cmnt,datePick,timePick;
+            sys=systolic.getText().toString().trim();
+            dia=diastolic.getText().toString().trim();
+            hr=heart.getText().toString().trim();
+            cmnt=comment.getText().toString().trim();
+            datePick=date.getText().toString().trim();
+            timePick=time.getText().toString().trim();
+            save.setEnabled(!sys.isEmpty() && !dia.isEmpty() && !hr.isEmpty() && !cmnt.isEmpty() && !datePick.isEmpty() &&!timePick.isEmpty());
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    };
 }
