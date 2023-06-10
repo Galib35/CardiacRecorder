@@ -99,6 +99,15 @@ public class RecViewAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
             }
         });
 
+        ((MyViewHolder)holder).edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(context,Update.class);
+                intent.putExtra("pos2",position);
+                context.startActivity(intent);
+            }
+        });
+
 
     }
 

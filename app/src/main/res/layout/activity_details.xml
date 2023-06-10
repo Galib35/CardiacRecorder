@@ -67,7 +67,7 @@
                     android:id="@+id/exp_sbp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="120 mm Hg"
+
                     android:textSize="18sp"
                     android:textColor="@color/black"
                     android:layout_toEndOf="@+id/s1"
@@ -109,7 +109,7 @@
                     android:id="@+id/exp_dbp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="80 mm Hg"
+
                     android:textSize="18sp"
                     android:textColor="@color/black"
                     android:layout_toEndOf="@+id/d1"
@@ -151,7 +151,6 @@
                     android:id="@+id/exp_hr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/_50_bpm"
                     android:textSize="18sp"
                     android:textColor="@color/black"
                     android:layout_toEndOf="@+id/h1"
@@ -193,7 +192,6 @@
                     android:id="@+id/exp_cmnt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/normal_blood_pressure"
                     android:textSize="18sp"
                     android:textColor="@color/black"
                     android:layout_toEndOf="@+id/c"

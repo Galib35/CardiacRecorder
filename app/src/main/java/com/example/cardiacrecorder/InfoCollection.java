@@ -100,37 +100,9 @@ public class InfoCollection extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String sys,dia,hr,cmnt,datePick,timePick;
-                sys=systolic.getText().toString().trim();
-                dia=diastolic.getText().toString().trim();
-                hr=heart.getText().toString().trim();
-                cmnt=comment.getText().toString().trim();
-                datePick=date.getText().toString().trim();
-                timePick=time.getText().toString().trim();
 
+                saveData();
 
-
-                DatabaseReference ref=FirebaseDatabase.getInstance().getReference()
-                        .child("User").child(Objects.requireNonNull(auth.getCurrentUser()).getUid()).child("Daily Tracker");
-
-                String key = ref.push().getKey();
-                assert key != null;
-                ref.child(key).child("Systolic").setValue(sys);
-                ref.child(key).child("Diastolic").setValue(dia);
-                ref.child(key).child("Heart Rate").setValue(hr);
-                ref.child(key).child("Comment").setValue(cmnt);
-                ref.child(key).child("Date").setValue(datePick);
-                ref.child(key).child("Time").setValue(timePick);
-
-               /* Constant.key.add(key);
-                Constant.tmp_sys.add(sys);
-                Constant.tmp_dia.add(dia);
-                Constant.tmp_hr.add(hr);
-                Constant.tmp_cmnt.add(cmnt);
-                Constant.tmp_date.add(datePick);
-                Constant.tmp_time.add(timePick);*/
-
-                Toast.makeText(InfoCollection.this, "Info added", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -142,14 +114,14 @@ public class InfoCollection extends AppCompatActivity {
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            String sys,dia,hr,cmnt,datePick,timePick;
+            String sys,dia,hr,datePick,timePick;
             sys=systolic.getText().toString().trim();
             dia=diastolic.getText().toString().trim();
             hr=heart.getText().toString().trim();
-            cmnt=comment.getText().toString().trim();
+
             datePick=date.getText().toString().trim();
             timePick=time.getText().toString().trim();
-            save.setEnabled(!sys.isEmpty() && !dia.isEmpty() && !hr.isEmpty() && !cmnt.isEmpty() && !datePick.isEmpty() &&!timePick.isEmpty());
+            save.setEnabled(!sys.isEmpty() && !dia.isEmpty() && !hr.isEmpty() && !datePick.isEmpty() &&!timePick.isEmpty());
         }
 
         @Override
@@ -157,4 +129,47 @@ public class InfoCollection extends AppCompatActivity {
 
         }
     };
+
+    void saveData()
+    {
+        String sys,dia,hr,cmnt,datePick,timePick;
+        sys=systolic.getText().toString().trim();
+        dia=diastolic.getText().toString().trim();
+        hr=heart.getText().toString().trim();
+        cmnt=comment.getText().toString().trim();
+        datePick=date.getText().toString().trim();
+        timePick=time.getText().toString().trim();
+
+
+
+        DatabaseReference ref=FirebaseDatabase.getInstance().getReference()
+                .child("User").child(Objects.requireNonNull(auth.getCurrentUser()).getUid()).child("Daily Tracker");
+
+        String key = ref.push().getKey();
+        assert key != null;
+        ref.child(key).child("Systolic").setValue(sys);
+        ref.child(key).child("Diastolic").setValue(dia);
+        ref.child(key).child("Heart Rate").setValue(hr);
+
+        ref.child(key).child("Date").setValue(datePick);
+        ref.child(key).child("Time").setValue(timePick);
+
+        if(!cmnt.isEmpty()){
+            ref.child(key).child("Comment").setValue(cmnt);
+        }
+        else
+        {
+            ref.child(key).child("Comment").setValue("null");
+        }
+
+               /* Constant.key.add(key);
+                Constant.tmp_sys.add(sys);
+                Constant.tmp_dia.add(dia);
+                Constant.tmp_hr.add(hr);
+                Constant.tmp_cmnt.add(cmnt);
+                Constant.tmp_date.add(datePick);
+                Constant.tmp_time.add(timePick);*/
+
+        Toast.makeText(InfoCollection.this, "Info added", Toast.LENGTH_SHORT).show();
+    }
 }
