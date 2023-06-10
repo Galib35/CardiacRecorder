@@ -8,16 +8,36 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center_horizontal"
-        android:fontFamily="@font/merienda_one"
-        android:text="@string/daily_tracker"
-        android:textColor="#1EDFAA"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/merienda_one"
+            android:text="@string/daily_tracker"
+            android:textColor="#1EDFAA"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/add_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add"
+            android:textAllCaps="false"
+            android:background="@drawable/button2"
+            android:textColor="@color/black"
+            android:drawableStart="@drawable/ic_baseline_add_24"
+            android:padding="5dp"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_margin="10dp"
+            android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +47,7 @@
     </androidx.recyclerview.widget.RecyclerView>
 
 
-    <RelativeLayout
+    <!--<RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="15dp">
@@ -43,5 +63,5 @@
             app:fabSize="normal"
             tools:ignore="SpeakableTextPresentCheck"
             />
-    </RelativeLayout>
+    </RelativeLayout>-->
 </LinearLayout>

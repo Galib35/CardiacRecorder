@@ -2,6 +2,7 @@ package com.example.cardiacrecorder;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +31,7 @@ public class RecViewAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @SuppressLint("ResourceAsColor")
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         String sys,dia,hr,cmnt,datePick,timePick;
         sys=Constant.tmp_sys.get(position)+" mm Hg";
         dia=Constant.tmp_dia.get(position)+" mm Hg";
@@ -89,7 +90,14 @@ public class RecViewAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
             ((MyViewHolder)holder).hrLayout.setBackgroundColor(context.getResources().getColor(R.color.high));
         }
 
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(context,Details.class);
+                intent.putExtra("pos",position);
+                context.startActivity(intent);
+            }
+        });
 
 
     }

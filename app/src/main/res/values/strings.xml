@@ -19,4 +19,6 @@
     <string name="details">Details</string>
     <string name="comment2">Comment: </string>
     <string name="normal_blood_pressure">Normal blood pressure</string>
+    <string name="normal">Normal</string>
+    <string name="add">Add</string>
 </resources>
