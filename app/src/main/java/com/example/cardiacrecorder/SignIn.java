@@ -1,6 +1,4 @@
 package com.example.cardiacrecorder;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -8,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -17,10 +16,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
@@ -63,38 +61,24 @@ public class SignIn extends AppCompatActivity {
             startActivity(intent);
         }
 
-        checkBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                check=checkBox.isChecked();
-            }
-        });
+        checkBox.setOnClickListener(view -> check=checkBox.isChecked());
 
-        create_ac.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent =new Intent(SignIn.this,SignUp.class);
-                startActivity(intent);
-            }
+        create_ac.setOnClickListener(view -> {
+            Intent intent =new Intent(SignIn.this,SignUp.class);
+            startActivity(intent);
         });
 
         email.addTextChangedListener(watcher);
         pass.addTextChangedListener(watcher);
 
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                pr.setVisibility(View.VISIBLE);
-                signIn();
-            }
+        btn.setOnClickListener(view -> {
+            pr.setVisibility(View.VISIBLE);
+            signIn();
         });
 
-        forget.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(SignIn.this, com.example.cardiacrecorder.ForgetPassword.class);
-                startActivity(intent);
-            }
+        forget.setOnClickListener(view -> {
+            Intent intent=new Intent(SignIn.this, ForgetPassword.class);
+            startActivity(intent);
         });
     }
 
@@ -158,11 +142,20 @@ public class SignIn extends AppCompatActivity {
 
         else
         {
-            auth.signInWithEmailAndPassword(em,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful())
-                    {
+
+            Log.d("YourTag", "Gabbar0");
+
+            Toast.makeText(SignIn.this,"Please verify your email!",Toast.LENGTH_SHORT).show();
+            auth.signInWithEmailAndPassword(em,password).addOnCompleteListener(task -> {
+                if(task.isSuccessful())
+                {
+
+                    Log.d("YourTag", "Gabbar1");
+
+
+                    if(auth.getCurrentUser()!=null && auth.getCurrentUser().isEmailVerified()){
+
+                        Log.d("YourTag", "Gabbar2");
                         pr.setVisibility(View.INVISIBLE);
                         Toast.makeText(SignIn.this,"Sign in Successful!",Toast.LENGTH_SHORT).show();
                         SharedPreferences preferences=getSharedPreferences("checkbox",MODE_PRIVATE);
@@ -173,13 +166,23 @@ public class SignIn extends AppCompatActivity {
                         Intent intent=new Intent(SignIn.this,MainActivity.class);
                         startActivity(intent);
                     }
-                    else
-                    {
+
+                    else if(auth.getCurrentUser()!=null && !auth.getCurrentUser().isEmailVerified()){
+
+                        Log.d("YourTag", "Gabbar3");
                         pr.setVisibility(View.INVISIBLE);
-                        Toast.makeText(SignIn.this, Objects.requireNonNull(task.getException()).getMessage(),Toast.LENGTH_LONG).show();
-                    }
+                        Toast.makeText(SignIn.this,"Please verify your email!",Toast.LENGTH_SHORT).show();
 
                 }
+
+                }
+                else
+                {
+                    Log.d("YourTag", "Gabbar4");
+                    pr.setVisibility(View.INVISIBLE);
+                    Toast.makeText(SignIn.this, Objects.requireNonNull(task.getException()).getMessage(),Toast.LENGTH_LONG).show();
+                }
+
             });
         }
     }

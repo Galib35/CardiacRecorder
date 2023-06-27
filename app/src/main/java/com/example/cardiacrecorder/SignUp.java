@@ -142,14 +142,44 @@ public class SignUp extends AppCompatActivity {
 
                     if(task.isSuccessful())
                     {
-                        savedata();
-                        progressBar.setVisibility(View.INVISIBLE);
-                        Toast.makeText(SignUp.this,"Sign up Successful!",Toast.LENGTH_SHORT).show();
-                        Intent intent=new Intent(SignUp.this,SignIn.class);
-                        startActivity(intent);
+                        // gabbar
+
+ //                       Toast.makeText(SignUp.this, "Step1", Toast.LENGTH_SHORT).show();
+
+                        auth.getCurrentUser().sendEmailVerification()
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+
+                                                if(task.isSuccessful()){
+
+                                         //           Toast.makeText(SignUp.this, "Step3", Toast.LENGTH_SHORT).show();
+
+                                           //         Toast.makeText(SignUp.this, "Regestered successfully. Please check your email for verification.", Toast.LENGTH_LONG).show();
+                                                    savedata();
+                                                    progressBar.setVisibility(View.INVISIBLE);
+                                                    Toast.makeText(SignUp.this,"Sign up Successful. Please check your email for verification.",Toast.LENGTH_SHORT).show();
+                                                    Intent intent=new Intent(SignUp.this,SignIn.class);
+                                                    startActivity(intent);
+                                                }
+
+                                                else{
+
+     //                                               Toast.makeText(SignUp.this, "Step3", Toast.LENGTH_SHORT).show();
+
+                                                    Toast.makeText(SignUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+
+                                                }
+
+                                            }
+                                        });
+
+
+
                     }
                     else
                     {
+                        Toast.makeText(SignUp.this, "Step2", Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.INVISIBLE);
                         if(task.getException() instanceof FirebaseAuthUserCollisionException)
                         {
