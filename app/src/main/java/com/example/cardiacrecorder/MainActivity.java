@@ -6,12 +6,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -22,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Constant.OnItemDeleteListener{
 
     Button fab;
     RecViewAdapter adapter;
@@ -40,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter=new RecViewAdapter(MainActivity.this);
+        adapter=new RecViewAdapter((Context) MainActivity.this, (Constant.OnItemDeleteListener) this);
         recyclerView.setAdapter(adapter);
 
         auth=FirebaseAuth.getInstance();
@@ -93,6 +96,34 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onItemDelete(int position) {
+
+        DatabaseReference ref= FirebaseDatabase.getInstance().getReference()
+                .child("User").child(Objects.requireNonNull(auth.getCurrentUser()).getUid()).child("Daily Tracker");
+
+        String key =Constant.key.get(position) ;
+        ref.child(key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Constant.key.remove(position);
+                    Constant.tmp_time.remove(position);
+                    Constant.tmp_sys.remove(position);
+                    Constant.tmp_dia.remove(position);
+                    Constant.tmp_hr.remove(position);
+                    Constant.tmp_date.remove(position);
+                    Constant.tmp_cmnt.remove(position);
+
+                    adapter.notifyItemRemoved(position);
+                    adapter.notifyItemRangeChanged(position, adapter.getItemCount());
+                }
+            }
+        });
+
+
+
+    }
     @Override
     protected void onResume() {
         super.onResume();

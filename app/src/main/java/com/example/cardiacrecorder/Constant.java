@@ -20,6 +20,11 @@ public class Constant {
     public static ArrayList<String> tmp_cmnt=new ArrayList<>();
     public static ArrayList<String> key=new ArrayList<>();
 
+    public interface OnItemDeleteListener {
+        void onItemDelete(int position);
+    }
+
+
 
 
 

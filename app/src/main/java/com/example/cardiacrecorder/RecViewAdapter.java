@@ -17,9 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class RecViewAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     Context context;
+    Constant.OnItemDeleteListener deleteListener;
 
-    public RecViewAdapter(Context context) {
+    public RecViewAdapter(Context context, Constant.OnItemDeleteListener deleteListener) {
         this.context = context;
+        this.deleteListener=deleteListener;
     }
 
     @NonNull
@@ -108,6 +110,14 @@ public class RecViewAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
             }
         });
 
+        ((MyViewHolder)holder).delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (deleteListener != null) {
+                    deleteListener.onItemDelete(position);
+                }
+            }
+        });
 
     }
 
