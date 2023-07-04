@@ -125,19 +125,19 @@ public class SignIn extends AppCompatActivity {
         {
             pr.setVisibility(View.INVISIBLE);
             email_input.setError("Invalid email");
-            com.example.cardiacrecorder.Constant.ch='e';
+            Constant.ch='e';
         }
         else if(password.contains(" "))
         {
             pr.setVisibility(View.INVISIBLE);
             pass_input.setError("No space is allowed!");
-            com.example.cardiacrecorder.Constant.ch='p';
+            Constant.ch='p';
         }
         else if(password.length()<6)
         {
             pr.setVisibility(View.INVISIBLE);
             pass_input.setError("Must contain at least 6 character");
-            com.example.cardiacrecorder.Constant.ch='p';
+            Constant.ch='p';
         }
 
         else
@@ -145,7 +145,7 @@ public class SignIn extends AppCompatActivity {
 
             Log.d("YourTag", "Gabbar0");
 
-            Toast.makeText(SignIn.this,"Please verify your email!",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(SignIn.this,"Please verify your email!",Toast.LENGTH_SHORT).show();
             auth.signInWithEmailAndPassword(em,password).addOnCompleteListener(task -> {
                 if(task.isSuccessful())
                 {
@@ -159,7 +159,7 @@ public class SignIn extends AppCompatActivity {
                         pr.setVisibility(View.INVISIBLE);
                         Toast.makeText(SignIn.this,"Sign in Successful!",Toast.LENGTH_SHORT).show();
                         SharedPreferences preferences=getSharedPreferences("checkbox",MODE_PRIVATE);
-                        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor edit=preferences.edit();
+                        SharedPreferences.Editor edit=preferences.edit();
                         edit.putBoolean("rem",check);
                         edit.apply();
 

@@ -15,14 +15,23 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class RecViewAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     Context context;
     Constant.OnItemDeleteListener deleteListener;
+    ArrayList<DataModel> dataList;
 
-    public RecViewAdapter(Context context, Constant.OnItemDeleteListener deleteListener) {
+    public RecViewAdapter(Context context, Constant.OnItemDeleteListener deleteListener, ArrayList<DataModel> dataList) {
+        this.context = context;
+        this.deleteListener = deleteListener;
+        this.dataList = dataList;
+    }
+
+   /* public RecViewAdapter(Context context, Constant.OnItemDeleteListener deleteListener) {
         this.context = context;
         this.deleteListener=deleteListener;
-    }
+    }*/
 
     @NonNull
     @Override
@@ -35,12 +44,22 @@ public class RecViewAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         String sys,dia,hr,cmnt,datePick,timePick;
-        sys=Constant.tmp_sys.get(position)+" mm Hg";
-        dia=Constant.tmp_dia.get(position)+" mm Hg";
-        hr=Constant.tmp_hr.get(position)+" bpm";
-        cmnt=Constant.tmp_cmnt.get(position);
-        datePick=Constant.tmp_date.get(position);
-        timePick=Constant.tmp_time.get(position);
+        DataModel data=dataList.get(position);
+
+        sys=data.getSystolic()+" mm Hg";
+        dia=data.getDiastolic()+" mm Hg";
+        hr=data.getHeart_rate()+" bpm";
+        cmnt=data.getComment();
+        datePick=data.getDate();
+        timePick=data.getTime();
+
+        //add data to access further
+        Constant.tmp_sys.add(data.getSystolic());
+        Constant.tmp_dia.add(data.getDiastolic());
+        Constant.tmp_cmnt.add(data.getComment());
+        Constant.tmp_date.add(data.getDate());
+        Constant.tmp_time.add(data.getTime());
+        Constant.tmp_hr.add(data.getHeart_rate());
 
         ((MyViewHolder)holder).date.setText(datePick);
         ((MyViewHolder)holder).time.setText(timePick);
@@ -49,9 +68,9 @@ public class RecViewAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
         ((MyViewHolder)holder).hr.setText(hr);
 
         int sysRate,diaRate,hrRate;
-        sysRate=Integer.parseInt(Constant.tmp_sys.get(position));
-        diaRate=Integer.parseInt(Constant.tmp_dia.get(position));
-        hrRate=Integer.parseInt(Constant.tmp_hr.get(position));
+        sysRate=Integer.parseInt(data.getSystolic());
+        diaRate=Integer.parseInt(data.getDiastolic());
+        hrRate=Integer.parseInt(data.getHeart_rate());
 
         //int newColor = getResources().getColor(R.color.text);
         //System.out.println(sysRate);
@@ -123,7 +142,7 @@ public class RecViewAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemCount() {
-        return Constant.key.size();
+        return dataList.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{

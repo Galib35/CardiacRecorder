@@ -9,7 +9,6 @@ import android.widget.TextView;
 public class Details extends AppCompatActivity {
     TextView sbp,dbp,hr,cmnt,date,time,sbpInd,dbpInd,hrInd;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

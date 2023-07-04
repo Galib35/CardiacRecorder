@@ -1,5 +1,6 @@
 package com.example.cardiacrecorder;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -14,6 +15,8 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -140,10 +143,33 @@ public class InfoCollection extends AppCompatActivity {
         datePick=date.getText().toString().trim();
         timePick=time.getText().toString().trim();
 
+        if(cmnt.isEmpty()){
+            cmnt="No Comment";
+        }
 
 
+        String userid= Objects.requireNonNull(auth.getCurrentUser()).getUid();
         DatabaseReference ref=FirebaseDatabase.getInstance().getReference()
-                .child("User").child(Objects.requireNonNull(auth.getCurrentUser()).getUid()).child("Daily Tracker");
+                .child("User").child(userid).child("Daily Tracker");
+
+        DataModel data=new DataModel(sys,dia,hr,datePick,timePick,cmnt);
+        ref.push().setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful())
+                {
+                    Toast.makeText(InfoCollection.this, "Info added", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(InfoCollection.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        //VpPJGIotETYXwwH2F8nEdUsUyEr2
+        //Objects.requireNonNull(auth.getCurrentUser()).getUid()
+       /* DatabaseReference ref=FirebaseDatabase.getInstance().getReference()
+                .child("User").child("VpPJGIotETYXwwH2F8nEdUsUyEr2").child("Daily Tracker");
 
         String key = ref.push().getKey();
         assert key != null;
@@ -160,16 +186,9 @@ public class InfoCollection extends AppCompatActivity {
         else
         {
             ref.child(key).child("Comment").setValue("null");
-        }
+        }*/
 
-               /* Constant.key.add(key);
-                Constant.tmp_sys.add(sys);
-                Constant.tmp_dia.add(dia);
-                Constant.tmp_hr.add(hr);
-                Constant.tmp_cmnt.add(cmnt);
-                Constant.tmp_date.add(datePick);
-                Constant.tmp_time.add(timePick);*/
 
-        Toast.makeText(InfoCollection.this, "Info added", Toast.LENGTH_SHORT).show();
+
     }
 }

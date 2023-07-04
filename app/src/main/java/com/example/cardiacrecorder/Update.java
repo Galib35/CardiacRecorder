@@ -1,5 +1,6 @@
 package com.example.cardiacrecorder;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -14,6 +15,8 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -145,7 +148,7 @@ public class Update extends AppCompatActivity {
         date.setText(dateTxt);
         time.setText(timeTxt);
 
-        if(!cmnt.equals("null"))
+        if(!cmnt.equals("No Comment"))
         {
             comment.setText(cmnt);
         }
@@ -165,14 +168,15 @@ public class Update extends AppCompatActivity {
         datePick=date.getText().toString().trim();
         timePick=time.getText().toString().trim();
 
-
-
+        //VpPJGIotETYXwwH2F8nEdUsUyEr2
+        //Objects.requireNonNull(auth.getCurrentUser()).getUid()
+        String uid=Objects.requireNonNull(auth.getCurrentUser()).getUid();
         DatabaseReference ref= FirebaseDatabase.getInstance().getReference()
-                .child("User").child(Objects.requireNonNull(auth.getCurrentUser()).getUid()).child("Daily Tracker");
+                .child("User").child(uid).child("Daily Tracker");
 
         String key =Constant.key.get(position) ;
 
-        ref.child(key).child("Systolic").setValue(sys);
+       /* ref.child(key).child("Systolic").setValue(sys);
         ref.child(key).child("Diastolic").setValue(dia);
         ref.child(key).child("Heart Rate").setValue(hr);
 
@@ -189,6 +193,21 @@ public class Update extends AppCompatActivity {
 
 
 
-        Toast.makeText(Update.this, "Info Updated", Toast.LENGTH_SHORT).show();
+        Toast.makeText(Update.this, "Info Updated", Toast.LENGTH_SHORT).show();*/
+
+        DataModel data=new DataModel(sys,dia,hr,datePick,timePick,cmnt);
+        ref.child(key).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful())
+                {
+                    Toast.makeText(Update.this, "Info Updated", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(Update.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

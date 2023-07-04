@@ -11,6 +11,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/logout_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_exit_to_app_24"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,16 +34,19 @@
             android:id="@+id/add_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/add"
-            android:textAllCaps="false"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/button2"
-            android:textColor="@color/black"
             android:drawableStart="@drawable/ic_baseline_add_24"
             android:padding="5dp"
-            android:textStyle="bold"
+            android:text="@string/add"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
             android:textSize="20sp"
-            android:layout_margin="10dp"
-            android:layout_alignParentEnd="true"/>
+            android:textStyle="bold" />
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
