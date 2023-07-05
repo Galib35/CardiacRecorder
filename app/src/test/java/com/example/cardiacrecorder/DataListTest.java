@@ -100,7 +100,29 @@ public class DataListTest {
     }
 
 
+    @Test
+    public void testUpdateData() {
 
+        DataList dataList=new DataList();
+        // Create initial data
+        DataModel data1 = new DataModel("120", "80", "70", "2023-07-04", "10:30", "Comment 1");
+        DataModel data2 = new DataModel("130", "85", "75", "2023-07-05", "11:00", "Comment 2");
 
+        // Add initial data to the list
+        dataList.addData(data1);
+        dataList.addData(data2);
 
+        // Create updated data
+        DataModel updatedData = new DataModel("140", "90", "80", "2023-07-06", "12:00", "Updated Comment");
+
+        // Update the first data entry
+        dataList.updateData(data1, updatedData);
+
+        // Check if the data was updated
+        Assert.assertEquals(2, dataList.countData());  // Number of records should remain the same
+        Assert.assertEquals(updatedData, dataList.getData().get(0));  // Updated data should be at index 0
+        Assert.assertEquals(data2, dataList.getData().get(1));  // Second data should remain unchanged
     }
+
+
+}
