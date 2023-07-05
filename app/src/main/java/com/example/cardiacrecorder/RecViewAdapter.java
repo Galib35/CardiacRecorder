@@ -17,7 +17,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class RecViewAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+/**
+ * RecyclerView adapter for displaying data in a list format.
+ */
+public class RecViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     Context context;
     Constant.OnItemDeleteListener deleteListener;
     ArrayList<DataModel> dataList;
@@ -28,32 +31,27 @@ public class RecViewAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.dataList = dataList;
     }
 
-   /* public RecViewAdapter(Context context, Constant.OnItemDeleteListener deleteListener) {
-        this.context = context;
-        this.deleteListener=deleteListener;
-    }*/
-
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v= LayoutInflater.from(context).inflate(R.layout.item_design,parent,false);
+        View v = LayoutInflater.from(context).inflate(R.layout.item_design, parent, false);
         return new MyViewHolder(v);
     }
 
     @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        String sys,dia,hr,cmnt,datePick,timePick;
-        DataModel data=dataList.get(position);
+        String sys, dia, hr, cmnt, datePick, timePick;
+        DataModel data = dataList.get(position);
 
-        sys=data.getSystolic()+" mm Hg";
-        dia=data.getDiastolic()+" mm Hg";
-        hr=data.getHeart_rate()+" bpm";
-        cmnt=data.getComment();
-        datePick=data.getDate();
-        timePick=data.getTime();
+        sys = data.getSystolic() + " mm Hg";
+        dia = data.getDiastolic() + " mm Hg";
+        hr = data.getHeart_rate() + " bpm";
+        cmnt = data.getComment();
+        datePick = data.getDate();
+        timePick = data.getTime();
 
-        //add data to access further
+        // Add data to access further
         Constant.tmp_sys.add(data.getSystolic());
         Constant.tmp_dia.add(data.getDiastolic());
         Constant.tmp_cmnt.add(data.getComment());
@@ -61,75 +59,60 @@ public class RecViewAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
         Constant.tmp_time.add(data.getTime());
         Constant.tmp_hr.add(data.getHeart_rate());
 
-        ((MyViewHolder)holder).date.setText(datePick);
-        ((MyViewHolder)holder).time.setText(timePick);
-        ((MyViewHolder)holder).sbp.setText(sys);
-        ((MyViewHolder)holder).dbp.setText(dia);
-        ((MyViewHolder)holder).hr.setText(hr);
+        ((MyViewHolder) holder).date.setText(datePick);
+        ((MyViewHolder) holder).time.setText(timePick);
+        ((MyViewHolder) holder).sbp.setText(sys);
+        ((MyViewHolder) holder).dbp.setText(dia);
+        ((MyViewHolder) holder).hr.setText(hr);
 
-        int sysRate,diaRate,hrRate;
-        sysRate=Integer.parseInt(data.getSystolic());
-        diaRate=Integer.parseInt(data.getDiastolic());
-        hrRate=Integer.parseInt(data.getHeart_rate());
+        int sysRate, diaRate, hrRate;
+        sysRate = Integer.parseInt(data.getSystolic());
+        diaRate = Integer.parseInt(data.getDiastolic());
+        hrRate = Integer.parseInt(data.getHeart_rate());
 
-        //int newColor = getResources().getColor(R.color.text);
-        //System.out.println(sysRate);
-        if(sysRate>=90 && sysRate<=140)
-        {
-
-            ((MyViewHolder)holder).sbpLayout.setBackgroundColor(context.getResources().getColor(R.color.text));
-        }
-        else if(sysRate<90)
-        {
-            ((MyViewHolder)holder).sbpLayout.setBackgroundColor(context.getResources().getColor(R.color.low));
-        }
-        else {
-            ((MyViewHolder)holder).sbpLayout.setBackgroundColor(context.getResources().getColor(R.color.high));
+        if (sysRate >= 90 && sysRate <= 140) {
+            ((MyViewHolder) holder).sbpLayout.setBackgroundColor(context.getResources().getColor(R.color.text));
+        } else if (sysRate < 90) {
+            ((MyViewHolder) holder).sbpLayout.setBackgroundColor(context.getResources().getColor(R.color.low));
+        } else {
+            ((MyViewHolder) holder).sbpLayout.setBackgroundColor(context.getResources().getColor(R.color.high));
         }
 
-        if(diaRate>=60 && diaRate<=90)
-        {
-            ((MyViewHolder)holder).dbpLayout.setBackgroundColor(context.getResources().getColor(R.color.text));
-        }
-        else if(diaRate<60)
-        {
-            ((MyViewHolder)holder).dbpLayout.setBackgroundColor(context.getResources().getColor(R.color.low));
-        }
-        else {
-            ((MyViewHolder)holder).dbpLayout.setBackgroundColor(context.getResources().getColor(R.color.high));
+        if (diaRate >= 60 && diaRate <= 90) {
+            ((MyViewHolder) holder).dbpLayout.setBackgroundColor(context.getResources().getColor(R.color.text));
+        } else if (diaRate < 60) {
+            ((MyViewHolder) holder).dbpLayout.setBackgroundColor(context.getResources().getColor(R.color.low));
+        } else {
+            ((MyViewHolder) holder).dbpLayout.setBackgroundColor(context.getResources().getColor(R.color.high));
         }
 
-        if(hrRate>=60 && hrRate<=100)
-        {
-            ((MyViewHolder)holder).hrLayout.setBackgroundColor(context.getResources().getColor(R.color.text));
-        }
-        else if(hrRate<60)
-        {
-            ((MyViewHolder)holder).hrLayout.setBackgroundColor(context.getResources().getColor(R.color.low));
-        }
-        else {
-            ((MyViewHolder)holder).hrLayout.setBackgroundColor(context.getResources().getColor(R.color.high));
+        if (hrRate >= 60 && hrRate <= 100) {
+            ((MyViewHolder) holder).hrLayout.setBackgroundColor(context.getResources().getColor(R.color.text));
+        } else if (hrRate < 60) {
+            ((MyViewHolder) holder).hrLayout.setBackgroundColor(context.getResources().getColor(R.color.low));
+        } else {
+            ((MyViewHolder) holder).hrLayout.setBackgroundColor(context.getResources().getColor(R.color.high));
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(context,Details.class);
-                intent.putExtra("pos",position);
+                Intent intent = new Intent(context, Details.class);
+                intent.putExtra("pos", position);
                 context.startActivity(intent);
             }
         });
 
-        ((MyViewHolder)holder).edit.setOnClickListener(new View.OnClickListener() {
+        ((MyViewHolder) holder).edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(context,Update.class);
-                intent.putExtra("pos2",position);
+                Intent intent = new Intent(context, Update.class);
+                intent.putExtra("pos2", position);
                 context.startActivity(intent);
             }
         });
 
-        ((MyViewHolder)holder).delete.setOnClickListener(new View.OnClickListener() {
+        ((MyViewHolder) holder).delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (deleteListener != null) {
@@ -137,7 +120,6 @@ public class RecViewAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 }
             }
         });
-
     }
 
     @Override
@@ -145,22 +127,23 @@ public class RecViewAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return dataList.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView date,time,dbp,sbp,hr;
-        ImageView edit,delete;
-        LinearLayout sbpLayout,dbpLayout,hrLayout;
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView date, time, dbp, sbp, hr;
+        ImageView edit, delete;
+        LinearLayout sbpLayout, dbpLayout, hrLayout;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            date=itemView.findViewById(R.id.item_date);
-            time=itemView.findViewById(R.id.item_time);
-            sbp=itemView.findViewById(R.id.item_sbp);
-            dbp=itemView.findViewById(R.id.dbp_item);
-            hr=itemView.findViewById(R.id.item_hr);
-            edit=itemView.findViewById(R.id.edit_btn);
-            delete=itemView.findViewById(R.id.delete_btn);
-            sbpLayout=itemView.findViewById(R.id.sbp_layout);
-            dbpLayout=itemView.findViewById(R.id.dbp_layout);
-            hrLayout=itemView.findViewById(R.id.heart_layout);
+            date = itemView.findViewById(R.id.item_date);
+            time = itemView.findViewById(R.id.item_time);
+            sbp = itemView.findViewById(R.id.item_sbp);
+            dbp = itemView.findViewById(R.id.dbp_item);
+            hr = itemView.findViewById(R.id.item_hr);
+            edit = itemView.findViewById(R.id.edit_btn);
+            delete = itemView.findViewById(R.id.delete_btn);
+            sbpLayout = itemView.findViewById(R.id.sbp_layout);
+            dbpLayout = itemView.findViewById(R.id.dbp_layout);
+            hrLayout = itemView.findViewById(R.id.heart_layout);
         }
     }
 }
