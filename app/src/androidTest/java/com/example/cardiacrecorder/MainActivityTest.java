@@ -48,18 +48,15 @@ public class MainActivityTest {
     @Rule
     public ActivityScenarioRule<MainActivity> activityScenarioRule = new ActivityScenarioRule<>(MainActivity.class);
 
+    
     @Test
     public void testAll() {
 
-        testDetails();
 
-        try {
-            Thread.sleep(100); // Delay in milliseconds (e.g., 3000 ms = 3 seconds)
-        } catch (InterruptedException e) {
-            System.out.println(e.getMessage());
-        }
 
         addData();
+
+        testDetails();
 
         editData();
 
@@ -70,14 +67,14 @@ public class MainActivityTest {
     @Test
     public void testDetails(){
         try {
-            Thread.sleep(3000); // Delay in milliseconds (e.g., 3000 ms = 3 seconds)
+            Thread.sleep(2000); // Delay in milliseconds (e.g., 3000 ms = 3 seconds)
         } catch (InterruptedException e) {
             System.out.println(e.getMessage());
         }
 
         int index = getTotalItem()-1;
 
-        onView(withId(R.id.rec_iew)).perform(RecyclerViewActions.actionOnItemAtPosition(index, click()));//RecyclerViewActions.actionOnItemAtPosition(index, click())
+        onView(withId(R.id.rec_iew)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));//RecyclerViewActions.actionOnItemAtPosition(index, click())
 
         onView(withId(R.id.exp_sbp)).check(matches(isDisplayed()));
 
@@ -85,6 +82,12 @@ public class MainActivityTest {
         onView(withText(DYS +" mm Hg")).check(matches(isDisplayed()));
         onView(withText(HEART +" bpm")).check(matches(isDisplayed()));
         onView(withText(COMMENT)).check(matches(isDisplayed()));
+
+        try {
+            Thread.sleep(700);
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
 
         Espresso.pressBack();
 
@@ -118,7 +121,7 @@ public class MainActivityTest {
         Espresso.pressBack();
         //safeSleep(2);
         try {
-            Thread.sleep(1000); // Delay in milliseconds (e.g., 3000 ms = 3 seconds)
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             System.out.println(e.getMessage());
         }
@@ -130,18 +133,14 @@ public class MainActivityTest {
 
     @Test
     public void editData(){
-        try {
-            Thread.sleep(3000); // Delay in milliseconds (e.g., 3000 ms = 3 seconds)
-        } catch (InterruptedException e) {
-            System.out.println(e.getMessage());
-        }
+
         onView(withId(R.id.rec_iew))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0,MyViewAction.clickChildViewWithId(R.id.edit_btn)));
 
         //onView(withText("Edit")).inRoot(isPlatformPopup()).perform(click());
 
-        onView(withId(R.id.sys_edt)).perform(clearText());
-        onView(withId(R.id.sys_edt)).perform(ViewActions.typeText(SYS_NEW));
+        //onView(withId(R.id.sys_edt)).perform(clearText());
+        onView(withId(R.id.sys_edt)).perform(ViewActions.typeText("65"));
 
 
         onView(withId(R.id.dia_edt)).perform(clearText());
@@ -164,7 +163,7 @@ public class MainActivityTest {
         //safeSleep(2);
 
         try {
-            Thread.sleep(1000); // Delay in milliseconds (e.g., 3000 ms = 3 seconds)
+            Thread.sleep(500); // Delay in milliseconds (e.g., 3000 ms = 3 seconds)
         } catch (InterruptedException e) {
             System.out.println(e.getMessage());
         }
@@ -176,13 +175,13 @@ public class MainActivityTest {
     @Test
     public void testDelete(){
         try {
-            Thread.sleep(3000); // Delay in milliseconds (e.g., 3000 ms = 3 seconds)
+            Thread.sleep(2000); // Delay in milliseconds (e.g., 3000 ms = 3 seconds)
         } catch (InterruptedException e) {
             System.out.println(e.getMessage());
         }
         int prevCount = getTotalItem();
         onView(withId(R.id.rec_iew))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(1,MyViewAction.clickChildViewWithId(R.id.delete_btn)));
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0,MyViewAction.clickChildViewWithId(R.id.delete_btn)));
 
         try {
             Thread.sleep(2000); // Delay in milliseconds (e.g., 3000 ms = 3 seconds)

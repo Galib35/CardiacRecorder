@@ -146,7 +146,7 @@ public class SignUp extends AppCompatActivity {
 
  //                       Toast.makeText(SignUp.this, "Step1", Toast.LENGTH_SHORT).show();
 
-                        auth.getCurrentUser().sendEmailVerification()
+                        Objects.requireNonNull(auth.getCurrentUser()).sendEmailVerification()
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
@@ -179,7 +179,7 @@ public class SignUp extends AppCompatActivity {
                     }
                     else
                     {
-                        Toast.makeText(SignUp.this, "Step2", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(SignUp.this, "Step2", Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.INVISIBLE);
                         if(task.getException() instanceof FirebaseAuthUserCollisionException)
                         {
