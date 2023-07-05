@@ -6,6 +6,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+/**
+ * The SplashScreen class represents the initial screen of the application.
+ * It displays a splash screen for a certain duration and then navigates to the SignIn activity.
+ */
+
 public class SplashScreen extends AppCompatActivity {
 
     @Override
