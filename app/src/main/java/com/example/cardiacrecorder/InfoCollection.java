@@ -26,27 +26,29 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.Objects;
 
+/**
+ * Activity class for collecting user information.
+ */
 public class InfoCollection extends AppCompatActivity {
-    EditText date,time,systolic,diastolic,heart,comment;
+    EditText date, time, systolic, diastolic, heart, comment;
     Button save;
-    TextInputLayout sysLayout,diaLayout,hrLayout,cmntLayout,dateLayout,timeLayout;
+    TextInputLayout sysLayout, diaLayout, hrLayout, cmntLayout, dateLayout, timeLayout;
     FirebaseAuth auth;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_collection);
-        date=findViewById(R.id.date_pick);
-        time=findViewById(R.id.time_pick);
-        systolic=findViewById(R.id.sys_edt);
-        diastolic=findViewById(R.id.dia_edt);
-        heart=findViewById(R.id.hr_edt);
-        comment=findViewById(R.id.cmnt_edt);
-        save=findViewById(R.id.save_btn);
 
-        auth=FirebaseAuth.getInstance();
+        date = findViewById(R.id.date_pick);
+        time = findViewById(R.id.time_pick);
+        systolic = findViewById(R.id.sys_edt);
+        diastolic = findViewById(R.id.dia_edt);
+        heart = findViewById(R.id.hr_edt);
+        comment = findViewById(R.id.cmnt_edt);
+        save = findViewById(R.id.save_btn);
 
+        auth = FirebaseAuth.getInstance();
 
         date.addTextChangedListener(watcher);
         time.addTextChangedListener(watcher);
@@ -75,7 +77,6 @@ public class InfoCollection extends AppCompatActivity {
 
                 datePickerDialog.show();
             }
-
         });
 
         time.setOnClickListener(new View.OnClickListener() {
@@ -97,98 +98,68 @@ public class InfoCollection extends AppCompatActivity {
 
                 timePickerDialog.show();
             }
-
         });
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 saveData();
-
             }
         });
     }
-    TextWatcher watcher=new TextWatcher() {
+
+    /**
+     * TextWatcher to enable/disable the save button based on the input fields.
+     */
+    TextWatcher watcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
         }
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            String sys,dia,hr,datePick,timePick;
-            sys=systolic.getText().toString().trim();
-            dia=diastolic.getText().toString().trim();
-            hr=heart.getText().toString().trim();
-
-            datePick=date.getText().toString().trim();
-            timePick=time.getText().toString().trim();
-            save.setEnabled(!sys.isEmpty() && !dia.isEmpty() && !hr.isEmpty() && !datePick.isEmpty() &&!timePick.isEmpty());
+            String sys = systolic.getText().toString().trim();
+            String dia = diastolic.getText().toString().trim();
+            String hr = heart.getText().toString().trim();
+            String datePick = date.getText().toString().trim();
+            String timePick = time.getText().toString().trim();
+            save.setEnabled(!sys.isEmpty() && !dia.isEmpty() && !hr.isEmpty() && !datePick.isEmpty() && !timePick.isEmpty());
         }
 
         @Override
         public void afterTextChanged(Editable editable) {
-
         }
     };
 
-    void saveData()
-    {
-        String sys,dia,hr,cmnt,datePick,timePick;
-        sys=systolic.getText().toString().trim();
-        dia=diastolic.getText().toString().trim();
-        hr=heart.getText().toString().trim();
-        cmnt=comment.getText().toString().trim();
-        datePick=date.getText().toString().trim();
-        timePick=time.getText().toString().trim();
+    /**
+     * Saves the collected data to the database.
+     */
+    void saveData() {
+        String sys = systolic.getText().toString().trim();
+        String dia = diastolic.getText().toString().trim();
+        String hr = heart.getText().toString().trim();
+        String cmnt = comment.getText().toString().trim();
+        String datePick = date.getText().toString().trim();
+        String timePick = time.getText().toString().trim();
 
-        if(cmnt.isEmpty()){
-            cmnt="No Comment";
+        if (cmnt.isEmpty()) {
+            cmnt = "No Comment";
         }
 
-
-        String userid= Objects.requireNonNull(auth.getCurrentUser()).getUid();
-        DatabaseReference ref=FirebaseDatabase.getInstance().getReference()
+        String userid = Objects.requireNonNull(auth.getCurrentUser()).getUid();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference()
                 .child("User").child(userid).child("Daily Tracker");
 
-        DataModel data=new DataModel(sys,dia,hr,datePick,timePick,cmnt);
+        DataModel data = new DataModel(sys, dia, hr, datePick, timePick, cmnt);
         ref.push().setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful())
-                {
+                if (task.isSuccessful()) {
                     Toast.makeText(InfoCollection.this, "Info added", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
+                } else {
                     Toast.makeText(InfoCollection.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-        //VpPJGIotETYXwwH2F8nEdUsUyEr2
-        //Objects.requireNonNull(auth.getCurrentUser()).getUid()
-       /* DatabaseReference ref=FirebaseDatabase.getInstance().getReference()
-                .child("User").child("VpPJGIotETYXwwH2F8nEdUsUyEr2").child("Daily Tracker");
-
-        String key = ref.push().getKey();
-        assert key != null;
-        ref.child(key).child("Systolic").setValue(sys);
-        ref.child(key).child("Diastolic").setValue(dia);
-        ref.child(key).child("Heart Rate").setValue(hr);
-
-        ref.child(key).child("Date").setValue(datePick);
-        ref.child(key).child("Time").setValue(timePick);
-
-        if(!cmnt.isEmpty()){
-            ref.child(key).child("Comment").setValue(cmnt);
-        }
-        else
-        {
-            ref.child(key).child("Comment").setValue("null");
-        }*/
-
-
-
     }
 }

@@ -1,4 +1,5 @@
 package com.example.cardiacrecorder;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +18,9 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
+/**
+ * Activity class for the "Forgot Password" functionality.
+ */
 public class ForgetPassword extends AppCompatActivity {
     EditText email;
     Button send;
@@ -26,8 +30,8 @@ public class ForgetPassword extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
 
-        email=findViewById(R.id.email_fp);
-        send=findViewById(R.id.send_btn);
+        email = findViewById(R.id.email_fp);
+        send = findViewById(R.id.send_btn);
 
         email.addTextChangedListener(watcher);
         send.setOnClickListener(new View.OnClickListener() {
@@ -36,13 +40,14 @@ public class ForgetPassword extends AppCompatActivity {
                 sendMail();
             }
         });
-
-
     }
-    TextWatcher watcher=new TextWatcher() {
+
+    /**
+     * TextWatcher to enable/disable the send button based on the email input.
+     */
+    TextWatcher watcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
         }
 
         @Override
@@ -52,27 +57,25 @@ public class ForgetPassword extends AppCompatActivity {
 
         @Override
         public void afterTextChanged(Editable editable) {
-
         }
     };
 
-    void sendMail()
-    {
-        String mail=email.getText().toString().trim();
-        FirebaseAuth auth=FirebaseAuth.getInstance();
+    /**
+     * Sends a password reset email to the entered email address.
+     */
+    void sendMail() {
+        String mail = email.getText().toString().trim();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
         auth.sendPasswordResetEmail(mail).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful())
-                {
+                if (task.isSuccessful()) {
                     Toast.makeText(ForgetPassword.this, "Check your email", Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent(ForgetPassword.this,SignIn.class);
-                    intent.putExtra("from_fp",true);
+                    Intent intent = new Intent(ForgetPassword.this, SignIn.class);
+                    intent.putExtra("from_fp", true);
                     startActivity(intent);
                     finish();
-                }
-                else
-                {
+                } else {
                     Toast.makeText(ForgetPassword.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }

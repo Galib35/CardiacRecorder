@@ -26,8 +26,13 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.Objects;
 
+/**
+ * The Update class represents the activity for updating the user's cardiac records.
+ * It allows the user to enter and save information such as systolic and diastolic readings,
+ * heart rate, date, time, and optional comments.
+ */
 public class Update extends AppCompatActivity {
-    EditText date,time,systolic,diastolic,heart,comment;
+    EditText date, time, systolic, diastolic, heart, comment;
     Button update;
     FirebaseAuth auth;
 
@@ -36,15 +41,15 @@ public class Update extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update);
 
-        date=findViewById(R.id.date_pick);
-        time=findViewById(R.id.time_pick);
-        systolic=findViewById(R.id.sys_edt);
-        diastolic=findViewById(R.id.dia_edt);
-        heart=findViewById(R.id.hr_edt);
-        comment=findViewById(R.id.cmnt_edt);
-        update=findViewById(R.id.update_btn);
+        date = findViewById(R.id.date_pick);
+        time = findViewById(R.id.time_pick);
+        systolic = findViewById(R.id.sys_edt);
+        diastolic = findViewById(R.id.dia_edt);
+        heart = findViewById(R.id.hr_edt);
+        comment = findViewById(R.id.cmnt_edt);
+        update = findViewById(R.id.update_btn);
 
-        auth=FirebaseAuth.getInstance();
+        auth = FirebaseAuth.getInstance();
 
         date.addTextChangedListener(watcher);
         time.addTextChangedListener(watcher);
@@ -54,6 +59,10 @@ public class Update extends AppCompatActivity {
 
         setData();
 
+        /**
+         * Handles the click event for the date EditText.
+         * Shows a DatePickerDialog to select the date.
+         */
         date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,9 +83,12 @@ public class Update extends AppCompatActivity {
 
                 datePickerDialog.show();
             }
-
         });
 
+        /**
+         * Handles the click event for the time EditText.
+         * Shows a TimePickerDialog to select the time.
+         */
         time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,9 +108,12 @@ public class Update extends AppCompatActivity {
 
                 timePickerDialog.show();
             }
-
         });
 
+        /**
+         * Handles the click event for the update button.
+         * Saves the entered data to the Firebase database.
+         */
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,7 +122,11 @@ public class Update extends AppCompatActivity {
         });
     }
 
-    TextWatcher watcher=new TextWatcher() {
+    /**
+     * TextWatcher for monitoring changes in the input fields.
+     * Enables the update button when all required fields have been filled.
+     */
+    TextWatcher watcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -120,27 +139,30 @@ public class Update extends AppCompatActivity {
 
         @Override
         public void afterTextChanged(Editable editable) {
-            String sys,dia,hr,datePick,timePick;
-            sys=systolic.getText().toString().trim();
-            dia=diastolic.getText().toString().trim();
-            hr=heart.getText().toString().trim();
+            String sys, dia, hr, datePick, timePick;
+            sys = systolic.getText().toString().trim();
+            dia = diastolic.getText().toString().trim();
+            hr = heart.getText().toString().trim();
 
-            datePick=date.getText().toString().trim();
-            timePick=time.getText().toString().trim();
-            update.setEnabled(!sys.isEmpty() && !dia.isEmpty() && !hr.isEmpty() && !datePick.isEmpty() &&!timePick.isEmpty());
-
+            datePick = date.getText().toString().trim();
+            timePick = time.getText().toString().trim();
+            update.setEnabled(!sys.isEmpty() && !dia.isEmpty() && !hr.isEmpty() && !datePick.isEmpty() && !timePick.isEmpty());
         }
     };
-    void setData()
-    {
-        int position=getIntent().getIntExtra("pos2",0);
-        String sbpTxt,dbpTxt,hrTxt,dateTxt,timeTxt,cmnt;
-        sbpTxt=Constant.tmp_sys.get(position);
-        dbpTxt=Constant.tmp_dia.get(position);
-        hrTxt=Constant.tmp_hr.get(position);
-        dateTxt=Constant.tmp_date.get(position);
-        timeTxt=Constant.tmp_time.get(position);
-        cmnt=Constant.tmp_cmnt.get(position);
+
+    /**
+     * Sets the data for editing existing records.
+     * Retrieves the selected record position and populates the input fields with the corresponding data.
+     */
+    void setData() {
+        int position = getIntent().getIntExtra("pos2", 0);
+        String sbpTxt, dbpTxt, hrTxt, dateTxt, timeTxt, cmnt;
+        sbpTxt = Constant.tmp_sys.get(position);
+        dbpTxt = Constant.tmp_dia.get(position);
+        hrTxt = Constant.tmp_hr.get(position);
+        dateTxt = Constant.tmp_date.get(position);
+        timeTxt = Constant.tmp_time.get(position);
+        cmnt = Constant.tmp_cmnt.get(position);
 
         systolic.setText(sbpTxt);
         diastolic.setText(dbpTxt);
@@ -148,63 +170,38 @@ public class Update extends AppCompatActivity {
         date.setText(dateTxt);
         time.setText(timeTxt);
 
-        if(!cmnt.equals("No Comment"))
-        {
+        if (!cmnt.equals("No Comment")) {
             comment.setText(cmnt);
         }
-
-
-
     }
 
-    void saveData()
-    {
-        int position=getIntent().getIntExtra("pos2",0);
-        String sys,dia,hr,cmnt,datePick,timePick;
-        sys=systolic.getText().toString().trim();
-        dia=diastolic.getText().toString().trim();
-        hr=heart.getText().toString().trim();
-        cmnt=comment.getText().toString().trim();
-        datePick=date.getText().toString().trim();
-        timePick=time.getText().toString().trim();
+    /**
+     * Saves the entered data to the Firebase database.
+     * Retrieves the selected record position and updates the corresponding data in the database.
+     */
+    void saveData() {
+        int position = getIntent().getIntExtra("pos2", 0);
+        String sys, dia, hr, cmnt, datePick, timePick;
+        sys = systolic.getText().toString().trim();
+        dia = diastolic.getText().toString().trim();
+        hr = heart.getText().toString().trim();
+        cmnt = comment.getText().toString().trim();
+        datePick = date.getText().toString().trim();
+        timePick = time.getText().toString().trim();
 
-        //VpPJGIotETYXwwH2F8nEdUsUyEr2
-        //Objects.requireNonNull(auth.getCurrentUser()).getUid()
-        String uid=Objects.requireNonNull(auth.getCurrentUser()).getUid();
-        DatabaseReference ref= FirebaseDatabase.getInstance().getReference()
+        String uid = Objects.requireNonNull(auth.getCurrentUser()).getUid();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference()
                 .child("User").child(uid).child("Daily Tracker");
 
-        String key =Constant.key.get(position) ;
+        String key = Constant.key.get(position);
 
-       /* ref.child(key).child("Systolic").setValue(sys);
-        ref.child(key).child("Diastolic").setValue(dia);
-        ref.child(key).child("Heart Rate").setValue(hr);
-
-        ref.child(key).child("Date").setValue(datePick);
-        ref.child(key).child("Time").setValue(timePick);
-
-        if(!cmnt.isEmpty()){
-            ref.child(key).child("Comment").setValue(cmnt);
-        }
-        else
-        {
-            ref.child(key).child("Comment").setValue("null");
-        }
-
-
-
-        Toast.makeText(Update.this, "Info Updated", Toast.LENGTH_SHORT).show();*/
-
-        DataModel data=new DataModel(sys,dia,hr,datePick,timePick,cmnt);
+        DataModel data = new DataModel(sys, dia, hr, datePick, timePick, cmnt);
         ref.child(key).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful())
-                {
+                if (task.isSuccessful()) {
                     Toast.makeText(Update.this, "Info Updated", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
+                } else {
                     Toast.makeText(Update.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                 }
             }
