@@ -48,7 +48,7 @@ public class MainActivityTest {
     @Rule
     public ActivityScenarioRule<MainActivity> activityScenarioRule = new ActivityScenarioRule<>(MainActivity.class);
 
-    
+
     @Test
     public void testAll() {
 
