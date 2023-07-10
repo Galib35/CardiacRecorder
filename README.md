@@ -24,32 +24,41 @@ Download Cardiac Recorder now and take control of your cardiovascular health!
 
 
 ## Screen Shots
-<table>
+<table >
 <tr>
-<td>
-<img src="https://github.com/atique38/CardiacRecorder/blob/master/Images/splash%20screen.jpeg" alt="splash screen" height="450px" width="300px"/>
-</td>
-<td>
-<img src="https://github.com/atique38/CardiacRecorder/blob/master/Images/sign%20up.jpeg" alt="sign up" height="450px" width="300px"/>
-</td>
-<td>
-<img src="https://github.com/atique38/CardiacRecorder/blob/master/Images/sign%20in.jpeg" alt="sign in" height="450px" width="300px"/>
-</td>
-<td>
-<img src="https://github.com/atique38/CardiacRecorder/blob/master/Images/main%20activity.jpeg" alt="main activity" height="450px" width="300px"/>
-</td>
+    <td>
+    <img src="https://github.com/atique38/CardiacRecorder/blob/master/Images/splash%20screen.jpeg" alt="splash screen" height="450px" 
+     width="245px"/>
+    </td>
+    <td>
+    <img src="https://github.com/atique38/CardiacRecorder/blob/master/Images/sign%20up.jpeg" alt="sign up" height="450px" width="245px"/>
+    </td>
+    
+</tr>
+
+<tr>
+  <td>
+    <img src="https://github.com/atique38/CardiacRecorder/blob/master/Images/sign%20in.jpeg" alt="sign in" height="450px" width="245px"/>
+    </td>
+    <td>
+    <img src="https://github.com/atique38/CardiacRecorder/blob/master/Images/main%20activity.jpeg" alt="main activity" height="450px" 
+    width="245px"/>
+    </td>
 </tr>
 
 <tr>
 
 <td>
-<img src="https://github.com/atique38/CardiacRecorder/blob/master/Images/add%20info.jpeg" alt="add" height="450px" width="300px"/>
+<img src="https://github.com/atique38/CardiacRecorder/blob/master/Images/add%20info.jpeg" alt="add" height="450px" width="245px"/>
 </td>
 <td>
-<img src="https://github.com/atique38/CardiacRecorder/blob/master/Images/details.jpeg" alt="details" height="450px" width="300px"/>
+<img src="https://github.com/atique38/CardiacRecorder/blob/master/Images/details.jpeg" alt="details" height="450px" width="245px"/>
 </td>
-<td>
-<img src="https://github.com/atique38/CardiacRecorder/blob/master/Images/update.jpeg" alt="details" height="450px" width="300px"/>
+
+</tr>
+<tr>
+  <td>
+<img src="https://github.com/atique38/CardiacRecorder/blob/master/Images/update.jpeg" alt="details" height="450px" width="245px"/>
 </td>
 </tr>
 </table>
